@@ -561,17 +561,30 @@ ingress:
   extraPaths: []
 
 # HTTPRoute configuration (Gateway API)
-httproute:
+route:
   enabled: false
+  apiVersion: gateway.networking.k8s.io/v1
+  kind: HTTPRoute
+
+  # Route annotations
   annotations: {}
+  # Route labels
+  labels: {}
+  
+  # Hostname(s) for the route
+  hostnames: []
 
-  # Hostname for the route
-  hostname: geopulse.example.com
+  # Gateway parent reference
+  parentRefs: []
 
-  # Gateway parent reference (optional - leave empty to match any accepting Gateway)
-  parentName: ""
-  sectionName: ""
-  namespace: ""
+  matches:
+    - path:
+        type: Prefix
+        value: /
+  
+  filters: []
+
+  additionalRules: []
 
 # Service Account
 serviceAccount:
